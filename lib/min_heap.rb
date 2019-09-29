@@ -13,8 +13,8 @@ class MinHeap
   end
 
   # This method adds a HeapNode instance to the heap
-  # Time Complexity: ?
-  # Space Complexity: ?
+  # Time Complexity: 0(log n) where n is the length of @store, everything is constant besides heap_up() which is 0(log n)
+  # Space Complexity: 0(1) constant sized variables
 
   def add(key, value = key)
     @store.append(HeapNode.new(key, value))
@@ -25,8 +25,8 @@ class MinHeap
 
   # This method removes and returns an element from the heap
   #   maintaining the heap structure
-  # Time Complexity: ?
-  # Space Complexity: ?
+  # Time Complexity: 0(log n) where n is the length of @store, everything is constant besides heap_down() which is 0(log n)
+  # Space Complexity: 0(1) constant sized variables
   def remove()
     return if @store.empty?
     last = @store.length - 1
@@ -52,8 +52,8 @@ class MinHeap
   end
 
   # This method returns true if the heap is empty
-  # Time complexity: ?
-  # Space complexity: ?
+  # Time complexity: O(1) Length and empty are constant time in ruby, not enumerables.
+  # Space complexity: O(1) no variables created at all
   def empty?
     return @store.empty?
   end
@@ -63,8 +63,8 @@ class MinHeap
   # This helper method takes an index and
   #  moves it up the heap, if it is less than it's parent node.
   #  It could be **very** helpful for the add method.
-  # Time complexity: ?
-  # Space complexity: ?
+  # Time complexity: O(log n) where n is the index
+  # Space complexity: O(1) only use constant sized variables
   def heap_up(index)
     until index == 0 || @store[index].key >= @store[((index - 1) / 2)].key
       parent = (index - 1) / 2
