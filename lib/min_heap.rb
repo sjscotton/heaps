@@ -8,7 +8,6 @@ class HeapNode
 end
 
 class MinHeap
-
   def initialize
     @store = []
   end
@@ -16,8 +15,12 @@ class MinHeap
   # This method adds a HeapNode instance to the heap
   # Time Complexity: ?
   # Space Complexity: ?
+
   def add(key, value = key)
-    raise NotImplementedError, "Method not implemented yet..."
+    @store.append(HeapNode.new(key, value))
+    curr = @store.length - 1
+
+    curr = heap_up(curr)
   end
 
   # This method removes and returns an element from the heap
@@ -25,9 +28,14 @@ class MinHeap
   # Time Complexity: ?
   # Space Complexity: ?
   def remove()
-    raise NotImplementedError, "Method not implemented yet..."
+    return if @store.empty?
+    last = @store.length - 1
+    curr = 0
+    swap(last, curr)
+    removed = @store.pop
+    heap_down(curr)
+    return removed.value
   end
-
 
   # Used for Testing
   def to_s
@@ -39,7 +47,7 @@ class MinHeap
     end
 
     output += @store.last.value + "]"
-      
+
     return output
   end
 
@@ -47,7 +55,7 @@ class MinHeap
   # Time complexity: ?
   # Space complexity: ?
   def empty?
-    raise NotImplementedError, "Method not implemented yet..."
+    return @store.empty?
   end
 
   private
@@ -58,14 +66,28 @@ class MinHeap
   # Time complexity: ?
   # Space complexity: ?
   def heap_up(index)
-    
+    until index == 0 || @store[index].key >= @store[((index - 1) / 2)].key
+      parent = (index - 1) / 2
+      swap(parent, index) if @store[parent].key > @store[index].key
+      index = parent
+    end
   end
 
-  # This helper method takes an index and 
+  # This helper method takes an index and
   #  moves it up the heap if it's smaller
   #  than it's parent node.
   def heap_down(index)
-    raise NotImplementedError, "Method not implemented yet..."
+    until (index * 2 + 1) > @store.length - 1
+      left = index * 2 + 1
+      right = index * 2 + 2
+      if right > @store.length - 1
+        child = left
+      else
+        child = @store[left].key < @store[right].key ? left : right
+      end
+      @store[index].key > @store[child].key ? swap(index, child) : return
+    end
+    return
   end
 
   # If you want a swap method... you're welcome
